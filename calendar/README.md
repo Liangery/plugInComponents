@@ -15,7 +15,7 @@
 |isToggleBtn| controll the display of the switch button| {Boolean}| true:show the switch button, false:hide the switch button| √ | × |
 |isChinese| controll the language of week |  {Boolean} |true:show Chinese week like ‘六’，false: show English week like ‘S’ | √ | × |
 |monthType| controll the type of month  | {Number 0-3}| 0: 1月, 1:一月, 2:Jan, 3: January | √ | × |
-|resultType| the result type|{Number 0-4}|1: 2017-1-1, 2: 2017年1月1日, 3: 2017/1/1, 4: timestamp(default config)|×|√|
+|resultType| the result type|{Number 0-4}|1: 2017-1-1(default), 2: 2017年1月1日, 3: 2017/1/1, 4: timestamp|×|√|
 |canViewDisabled| controll the display of the out-range months |  {Boolean} |true: show the out-range months，false:hide the out-range months| √ | × |
 |fixedCalendarHeight|controll the type of height and days|{Boolean}|true:reveal 42 days(default),false:reveal 35 days|×|√|
 |beforeRenderArr| rend the style of the specified date |   {unordered Array(Object)} | every item of this array has two arguments:  the specified date  `stamp{Number}` & the specified classname `className {String}`, see below for details | √ | × |
