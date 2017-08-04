@@ -28,7 +28,7 @@ new Calendar({
         className: 'able1',
     }], //方形背景
     classConfig: [{ year: 2017, month: 11, dayArr: [{ day: 1, class: 'able1' }, { day: 2, class: 'able1' }, { day: 3, class: 'able1' }] }], //默认是原形的背景
-    success: function(item, arr, cal) {
+    success: function(item, arr, ele,cal) {
         console.log(item, arr);
         cal.hideBackground();
     },
@@ -69,7 +69,7 @@ new Calendar({
         stamp: new Date(2017, 8, 15).getTime(),
         className: 'able2',
     }],
-    success: function(item, arr, cal, ele) { //点击日期的时候的回调函数，item当前返回的结果，arr最近点击的日期
+    success: function(item, arr, ele,cal) { //点击日期的时候的回调函数，item当前返回的结果，arr最近点击的日期
         console.log(item, arr);
         document.getElementsByClassName('container2-item-' + item)[0].classList.add('able2'); //这里可以动态修改颜色
     },

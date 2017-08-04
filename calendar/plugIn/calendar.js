@@ -301,7 +301,7 @@
                     cal.resultArr.push(dataStamp);
                 }
                 var ele = $class('container2-item-' + dataStamp)[0];
-                cal.success(generateResult(dataStamp, cal), cal.resultArr, cal, ele);
+                cal.success(generateResult(dataStamp, cal), cal.resultArr, ele,cal);
                 setTimeout(function() {
                     cal.hideBackground();
                 }, 300);
@@ -355,13 +355,13 @@
         this.resultType = config.resultType || 1; // 返回的结果的格式, 1:2017-1-1,2:2017年1月1日,3:2017/1/1,4:时间戳
         this.canViewDisabled = config.canViewDisabled || false; // 是否可以阅读不在范围内的月份
         this.beforeRenderArr = config.beforeRenderArr || [];
-        //日期插件中每天的样式配置，不修改插件中的，只是添加...    classConfig=[{year:2017,month:3,dayArr:[{day:1,class:''}]}]
+        //日期插件中每天的样式配置，不修改插件中的，只是添加...    classConfig:[{year:2017,month:3,dayArr:[{day:1,class:''}]}]
         this.classConfig = config.classConfig || [];
 
-        this.classConfigType = config.classConfigType === undefined ? win.calendarConfig.classConfigType : config.classConfigType;
+        this.classConfigType = (config.classConfigType === undefined ? win.calendarConfig.classConfigType : config.classConfigType) || 1;
 
         //是否固定日历的高度，
-        this.fixedCalendarHeight = config.fixedCalendarHeight === undefined ? win.calendarConfig.fixedCalendarHeight : config.fixedCalendarHeight;
+        this.fixedCalendarHeight = config.fixedCalendarHeight === undefined ? (win.calendarConfig.fixedCalendarHeight !== false) : config.fixedCalendarHeight;
 
         //选中日期成功的回调函数
         this.success = config.success;

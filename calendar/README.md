@@ -15,7 +15,13 @@
 |isToggleBtn| controll the display of the switch button| {Boolean}| true:show the switch button, false:hide the switch button| √ | × |
 |isChinese| controll the language of week |  {Boolean} |true:show Chinese week like ‘六’，false: show English week like ‘S’ | √ | × |
 |monthType| controll the type of month  | {Number 0-3}| 0: 1月, 1:一月, 2:Jan, 3: January | √ | × |
+|resultType| the result type|{Number 0-4}|1: 2017-1-1, 2: 2017年1月1日, 3: 2017/1/1, 4: timestamp(default config)|×|√|
 |canViewDisabled| controll the display of the out-range months |  {Boolean} |true: show the out-range months，false:hide the out-range months| √ | × |
+|fixedCalendarHeight|controll the type of height and days|{Boolean}|true:reveal 42 days(default),false:reveal 35 days|×|√|
 |beforeRenderArr| rend the style of the specified date |   {unordered Array(Object)} | every item of this array has two arguments:  the specified date  `stamp{Number}` & the specified classname `className {String}`, see below for details | √ | × |
-|success| the callback of  tap events|   {Fuction(item, array,cal)}| there are 3 arguments，`item`: the time stamp of the target，`array` :the two targets after two tap events ,`cal` : the instance| √ | × |
-|switchRender| the callback of  switch events |   {Fuction(year, month, cal)} |  there are 3 arguments，`year` : the generating year，`month`: the generating month (from zero), `cal` : the instance| √ | × |
+|classConfig|init calendar's class by day  |{unordered Array(Object)}|example:[{year:2017,month:3,dayArr:[{day:1,class:''}]}]|×|√|
+|classConfigType|the classConfig type|{number 0-1}|`classConfig`'s type,0:squre region,1: circular(default) | ×  |√|
+|success| the callback of  tap events|   {Function(item, array,ele,cal)}| there are 4 arguments，`item`: the time stamp of the target，`array` :the two targets after two tap events ,`ele` : the element of day you touch, `cal` : the instance| √ | √ |
+|switchRender| the callback of  switch events |   {Function(year, month,direct, cal)} |  there are 4 arguments，`year` : the generating year，`month`: the generating month (from zero),`direct`:the direction you touch move, `cal` : the instance| √ | √ |
+|showCalendarFn| the callback of show calendar|{Function}|-|×  |√|
+|hideCalendarFn| the callback of hide calendar|{Function}|-|×  |√|
