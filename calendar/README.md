@@ -1,4 +1,4 @@
-### 插件原著作者：appian [插件原著github地址](https://github.com/AppianZ/Desert-or-Ocean)
+
 
 ### 参数说明
 |Name|Mean|Type|Value|Must|change|
@@ -25,3 +25,6 @@
 |switchRender| the callback of  switch events |   {Function(year, month,direct, cal)} |  there are 4 arguments，`year` : the generating year，`month`: the generating month (from zero),`direct`:the direction you touch move, `cal` : the instance| √ | √ |
 |showCalendarFn| the callback of show calendar|{Function}|-|×  |√|
 |hideCalendarFn| the callback of hide calendar|{Function}|-|×  |√|
+
+### 插件原著作者：appian [插件原著github地址](https://github.com/AppianZ/Desert-or-Ocean)
+
