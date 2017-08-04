@@ -9,7 +9,7 @@
 |isMask| set layout | {Boolean} | true:“**popup layout**”, false:“**normal layout**”  | × | √ |
 |beginTime| user-defined begin time points.  | {Array(Number)} |an empty array means` [1970, 1, 1]`. every position sequent meas “**year**”, "**month**" and "**date**".  | × |× |
 |endTime| user-defined end time points. | {Array(Number)}| the same to beginTime. an empty array means `[nextYear, 12, 31] `| × | × |
-|recentTime| user-defined current time points. | {Array(Number)} | the same to beginTime. an empty array means `[currentYear, currentMonth, 1]`  | √ | × |
+|recentTime| user-defined current time points. | {Array(Number)} | the same to beginTime. an empty array means `[currentYear, currentMonth, 1]`  |  ×| × |
 |isSundayFirst| the Sequence of Sunday | {Boolean}| true:Sunday at the **first** column, false:Sunday at the **last** column | × | × |
 |isShowNeighbor| controll the display of the adjacent months| {Boolean} |true: show the adjacent months, false: hide the adjacent months | × | × |
 |isToggleBtn| controll the display of the switch button| {Boolean}| true:show the switch button, false:hide the switch button| × | × |
