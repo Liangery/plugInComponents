@@ -1,9 +1,9 @@
 /**
  * Created by appian on 2017/4/14.
- * edited by gaoyongliang  20170722 扩充了一个打开日期控件的方法showSuccess，还有prevent的回调，对浏览器的判断。
+ * Edited by shannonliang
  */
 
-(function (wid, dcm) {
+(function(wid, dcm) {
     var win = wid;
     var doc = dcm,
         now = new Date(),
@@ -27,7 +27,7 @@
     }
 
     function on(action, selector, callback) {
-        doc.addEventListener(action, function (e) {
+        doc.addEventListener(action, function(e) {
             if (selector == e.target.tagName.toLowerCase() || selector == e.target.className || selector == e.target.id) {
                 callback(e);
             }
@@ -118,19 +118,19 @@
         var lastInDay = new Date(year, month + 1, 0).getDay();
         var beforeCount = cal.isSundayFirst ? firstInDay : (firstInDay === 0 ? 6 : firstInDay - 1);
         var afterCount = cal.isSundayFirst ? (6 - lastInDay) : (lastInDay === 0 ? 0 : 7 - lastInDay);
-        loop(0, beforeCount, function (i) {
+        loop(0, beforeCount, function(i) {
             if (cal.isShowNeighbor) recentArr.unshift((lastDateCount - i) + 'b');
             else recentArr.unshift('' + 'b');
         });
-        loop(1, dateCount + 1, function (i) {
+        loop(1, dateCount + 1, function(i) {
             recentArr.push(i);
         });
-        loop(1, afterCount + 1, function (i) {
+        loop(1, afterCount + 1, function(i) {
             if (cal.isShowNeighbor) recentArr.push(i + 'a');
             else recentArr.push('' + 'a');
         });
         if (recentArr.length == 35 && cal.fixedCalendarHeight) {
-            loop(afterCount + 1, afterCount + 8, function (i) {
+            loop(afterCount + 1, afterCount + 8, function(i) {
                 if (cal.isShowNeighbor) recentArr.push(i + 'a');
                 else recentArr.push('' + 'a');
             });
@@ -142,7 +142,7 @@
         var dateArr = generateItemBodyArr(year, month, cal);
         var html = generateItemTitle(cal) + '<ul class="calendar-item-body">';
         var dayClassConfigArr = [];
-        loop(0, cal.classConfig.length, function (i) {
+        loop(0, cal.classConfig.length, function(i) {
             if (cal.classConfig[i].year == year && cal.classConfig[i].month - 1 == month) {
                 dayClassConfigArr = cal.classConfig[i].dayArr;
             }
@@ -150,7 +150,7 @@
         var tempStamp = '',
             tempDayClassOuter = '',
             tempDayClassInner = '';
-        loop(0, dateArr.length, function (i) {
+        loop(0, dateArr.length, function(i) {
             tempDayClassOuter = '';
             tempDayClassInner = '';
             for (var j = 0; j < dayClassConfigArr.length; j++) {
@@ -185,21 +185,21 @@
             dateArr = [year, month, day],
             result = "";
         switch (cal.resultType) {
-        case 1:
-            result = dateArr.join('-');
-            break;
-        case 2:
-            result = year + "年" + month + "月" + day + "日";
-            break;
-        case 3:
-            result = dateArr.join('/');
-            break;
-        case 4:
-            result = times;
-            break;
-        default:
-            result = times;
-            break;
+            case 1:
+                result = dateArr.join('-');
+                break;
+            case 2:
+                result = year + "年" + month + "月" + day + "日";
+                break;
+            case 3:
+                result = dateArr.join('/');
+                break;
+            case 4:
+                result = times;
+                break;
+            default:
+                result = times;
+                break;
         }
         return result;
     }
@@ -226,14 +226,14 @@
         var applyYear = new Date(cal.currentYear, direct ? cal.currentMonth - 1 : cal.currentMonth + 1).getFullYear();
         var applyMonth = new Date(cal.currentYear, direct ? cal.currentMonth - 1 : cal.currentMonth + 1).getMonth();
         var tempMonths = cal.box.querySelectorAll('.calendar-item.calendar-item' + itemNum);
-        loop(0, tempMonths.length, function (i) {
+        loop(0, tempMonths.length, function(i) {
             var obj = tempMonths[i];
             obj.innerHTML = generateItemBodyDom(cal.currentYear, direct ? cal.currentMonth - 1 : cal.currentMonth + 1, cal);
             obj.setAttribute('data-year', applyYear);
             obj.setAttribute('data-month', applyMonth + 1);
         });
         if (Object.prototype.toString.call(cal.switchRender) === '[object Function]') {
-            cal.switchRender(applyYear, applyMonth, cal);
+            cal.switchRender(applyYear, applyMonth, direct, cal);
         }
     }
 
@@ -300,25 +300,15 @@
                     cal.resultArr.length = 0;
                     cal.resultArr.push(dataStamp);
                 }
-                cal.success(generateResult(dataStamp, cal), cal.resultArr, cal);
-                setTimeout(function () {
+                var ele = $class('container2-item-' + dataStamp)[0];
+                cal.success(generateResult(dataStamp, cal), cal.resultArr, cal, ele);
+                setTimeout(function() {
                     cal.hideBackground();
                 }, 300);
 
             }
             transformFormat(cal.box, cal.distance, 0.5);
         } else if (Math.abs(cal.move.S) >= Math.abs(cal.move.standardS) && !cal.isMask) {} else if (!cal.isRangeChecked) {
-            // var enddis = cal.distance + (tempDis - 0);
-            // enddis = (cal.end.X * 2 >= cal.width && Math.abs(tempDis) * 5 >= cal.width) ?
-            //     Math.ceil(enddis / cal.width) : Math.floor(enddis / cal.width);
-            // transformFormat(cal.box, enddis * cal.width, 0.5);
-
-            // if (cal.distance !== enddis * cal.width) {
-            //     switchItemBody(tempDis > 0, enddis, cal);
-            // }
-            // cal.distance = enddis * cal.width;
-            // checkRange(cal.currentYear, cal.currentMonth, cal);
-
             if (Math.abs(tempDis) > Math.abs(cal.width) / 4) {
                 cal.distance = tempDis > 0 ? cal.distance + cal.width : cal.distance - cal.width;
                 transformFormat(cal.box, cal.distance, .3);
@@ -337,21 +327,21 @@
     function touch(event, cal) {
         event = event || window.event;
         switch (event.type) {
-        case "touchstart":
-            touchStart(event, cal);
-            break;
-        case "touchend":
-            touchEnd(event, cal);
-            break;
-        case "touchmove":
-            touchMove(event, cal);
-            break;
+            case "touchstart":
+                touchStart(event, cal);
+                break;
+            case "touchend":
+                touchEnd(event, cal);
+                break;
+            case "touchmove":
+                touchMove(event, cal);
+                break;
         }
     }
 
     function Calendar(config) {
         this.clickTarget = config.clickTarget || '';
-        this.container = config.container;//非必填，不填的话，日期的插件的container放到body里
+        this.container = config.container; //非必填，不填的话，日期的插件的container放到body里
         this.angle = config.angle || 14;
         this.isMask = !!config.clickTarget ? config.isMask !== false : false; // 是否需要弹层
         this.beginTime = config.beginTime || [nowYear - 10, 1, 1]; //如空数组默认设置成1970年1月1日开始,数组的每一位分别是年月日。
@@ -378,9 +368,10 @@
         //滚动月份的回调函数
         this.switchRender = !config.switchRender ? win.calendarConfig.switchRender : config.switchRender;
         //弹出日历窗口的回调函数
-        this.showSuccess = !config.showSuccess ? win.calendarConfig.showSuccess : config.showSuccess;
+        this.showCalendarFn = !config.showCalendarFn ? win.calendarConfig.showCalendarFn : config.showCalendarFn;
         //隐藏日历窗口的回调函数
         this.hideCalendarFn = !config.hideCalendarFn ? win.calendarConfig.hideCalendarFn : config.hideCalendarFn;
+        this.hideCalendarFlag = 0;
 
         this.box = null;
         this.currentIdx = 2;
@@ -424,7 +415,7 @@
 
     Calendar.prototype = {
         constructor: Calendar,
-        initContainer: function () {
+        initContainer: function() {
             //检查是否有全局的日期插件
             if (!win.calendarConfig.calendarContainerIDArr) {
                 win.calendarConfig.calendarContainerIDArr = [];
@@ -434,7 +425,7 @@
             if (this.container) {
                 win.calendarConfig.calendarContainerIDArr.push(this.container);
                 if (!$id(this.container)) {
-                     el = document.createElement('div');
+                    el = document.createElement('div');
                     el.id = this.container;
                     document.body.appendChild(el);
                 }
@@ -466,7 +457,7 @@
             document.body.appendChild(el);
             this.container = id;
         },
-        initDomFuc: function () {
+        initDomFuc: function() {
             var _this = this;
             var html = '';
             if (!checkTime(_this)) return;
@@ -510,7 +501,7 @@
             _this.box = $id(_this.container + 'Box');
             _this.renderCallbackArr(_this.beforeRenderArr);
         },
-        initReady: function () {
+        initReady: function() {
             this.box.style.transform = 'translate3d(-' + this.currentIdx * this.width + 'px, 0 , 0)';
             this.box.style.webkitTransform = 'translate3d(-' + this.currentIdx * this.width + 'px, 0 , 0)';
             this.box.style.transitionDuration = '0s';
@@ -519,50 +510,55 @@
             $id(this.container + 'TitleCenter').innerHTML = generateTitleMonth(this.currentIdx, this.currentYear, this.currentMonth, this);
             checkRange(this.currentYear, this.currentMonth, this);
         },
-        initBinding: function () {
+        initBinding: function() {
             var _this = this;
             if (_this.isMask) {
                 var bg = $id('calendar-bg-' + _this.container);
                 var block = $id('calendar-block-' + _this.container);
                 var body = doc.body;
-                on('touchstart', _this.clickTarget, function () {
+                on('touchstart', _this.clickTarget, function() {
                     bg.classList.add('calendar-bg-up', 'calendar-bg-delay');
                     block.classList.add('calendar-block-mask-up', 'calendar-block-mask-transition', 'calendar-block-action-none');
                     body.classList.add('calendar-locked');
                     body.addEventListener('touchmove', _this.prevent);
-                    if (Object.prototype.toString.call(_this.showSuccess) === '[object Function]') {
-                        _this.showSuccess();
+                    if (Object.prototype.toString.call(_this.showCalendarFn) === '[object Function]') {
+                        _this.hideCalendarFlag = 0;
+                        _this.showCalendarFn();
                     }
                 }, false);
 
-                on('touchstart', 'calendar-bg-' + _this.container, function () {
+                on('touchstart', 'calendar-bg-' + _this.container, function() {
                     bg.classList.remove('calendar-bg-up');
                     block.classList.remove('calendar-block-mask-up', 'calendar-block-action-none');
                     body.classList.remove('calendar-locked');
-                    setTimeout(function () {
+                    setTimeout(function() {
                         bg.classList.remove('calendar-bg-delay');
                     }, 300);
                     body.removeEventListener('touchmove', _this.prevent);
                     if (Object.prototype.toString.call(_this.hideCalendarFn) === '[object Function]') {
-                        setTimeout(function () {
+                        setTimeout(function() {
+                            if (_this.hideCalendarFlag == 1) {
+                                return;
+                            }
+                            _this.hideCalendarFlag = 1;
                             _this.hideCalendarFn();
                         }, 500);
                     }
                 }, false);
             }
-            this.box.addEventListener('touchstart', function (e) {
+            this.box.addEventListener('touchstart', function(e) {
                 touch(e, _this);
             }, false);
-            this.box.addEventListener('touchmove', function (e) {
+            this.box.addEventListener('touchmove', function(e) {
                 touch(e, _this);
             }, false);
-            this.box.addEventListener('touchend', function (e) {
+            this.box.addEventListener('touchend', function(e) {
                 touch(e, _this);
             }, true);
             if (_this.isToggleBtn) {
-                on('touchstart', _this.container + 'CalendarTitleLeft', function () {
+                on('touchstart', _this.container + 'CalendarTitleLeft', function() {
                     infinitePosition(_this);
-                    setTimeout(function () {
+                    setTimeout(function() {
                         _this.distance = _this.distance + _this.width;
                         transformFormat(_this.box, _this.distance, .3);
                         switchItemBody(true, _this.distance / _this.width, _this);
@@ -570,9 +566,9 @@
                     }, 100);
 
                 });
-                on('touchstart', _this.container + 'CalendarTitleRight', function () {
+                on('touchstart', _this.container + 'CalendarTitleRight', function() {
                     infinitePosition(_this);
-                    setTimeout(function () {
+                    setTimeout(function() {
                         _this.distance = _this.distance - _this.width;
                         transformFormat(_this.box, _this.distance, .3);
                         switchItemBody(false, _this.distance / _this.width, _this);
@@ -581,24 +577,24 @@
                 });
             }
         },
-        renderCallbackArr: function (arr) {
+        renderCallbackArr: function(arr) {
             var _this = this;
-            loop(0, arr.length, function (k) {
+            loop(0, arr.length, function(k) {
                 if (!$class(_this.container + '-item-' + arr[k].stamp)[0]) {
                     console.error(_this.container + '-item-' + arr[k].stamp + ' 不在范围内,请检查你的时间戳');
                     return true;
                 }
-                loop(0, $class(_this.container + '-item-' + arr[k].stamp).length, function (j) {
+                loop(0, $class(_this.container + '-item-' + arr[k].stamp).length, function(j) {
                     $class(_this.container + '-item-' + arr[k].stamp)[j].classList.add(arr[k].className);
                 });
             });
         },
-        prevent: function (e) {
+        prevent: function(e) {
             if (e && e.preventDefault) {
                 e.preventDefault();
             }
         },
-        hideBackground: function () {
+        hideBackground: function() {
             if (!this.isMask) return;
             var _this = this;
             var bg = $id('calendar-bg-' + _this.container);
@@ -607,13 +603,17 @@
             bg.classList.remove('calendar-bg-up');
             block.classList.remove('calendar-block-mask-up', 'calendar-block-action-none');
             body.classList.remove('calendar-locked');
-            setTimeout(function () {
+            setTimeout(function() {
                 bg.classList.remove('calendar-bg-delay');
             }, 300);
             body.removeEventListener('touchmove', _this.prevent);
 
             if (Object.prototype.toString.call(_this.hideCalendarFn) === '[object Function]') {
-                setTimeout(function () {
+                setTimeout(function() {
+                    if (_this.hideCalendarFlag == 1) {
+                        return;
+                    }
+                    _this.hideCalendarFlag = 1;
                     _this.hideCalendarFn();
                 }, 300);
             }
@@ -623,7 +623,7 @@
     if (typeof exports == "object") {
         module.exports = Calendar;
     } else if (typeof win.define == "function" && win.define.amd) {
-        win.define([], function () {
+        win.define([], function() {
             return Calendar;
         });
     } else {
