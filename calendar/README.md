@@ -20,7 +20,7 @@
 |fixedCalendarHeight|controll the type of height and days|{Boolean}|true:reveal 42 days(default),false:reveal 35 days|×|√|
 |beforeRenderArr| rend the style of the specified date |   {unordered Array(Object)} | every item of this array has two arguments:  the specified date  `stamp{Number}` & the specified classname `className {String}`, see below for details | × | × |
 |classConfig|init calendar's class by day  |{unordered Array(Object)}|example:[{year:2017,month:3,dayArr:[{day:1,class:''}]}]|×|√|
-|classConfigType|the classConfig type|{number 0-1}|`classConfig`'s type,0:squre region,1: circular(default) | ×  |√|
+|classConfigType|the classConfig type|{number 0-1}|`classConfig`'s type,0:square region,1: circular region(default) | ×  |√|
 |success| the callback of  tap events|   {Function(item, array,ele,cal)}| there are 4 arguments，`item`: the time stamp of the target，`array` :the two targets after two tap events ,`ele` : the element of day you touch, `cal` : the instance| × | √ |
 |switchRender| the callback of  switch events |   {Function(year, month,direct, cal)} |  there are 4 arguments，`year` : the generating year，`month`: the generating month (from zero),`direct`:the direction you touch move, `cal` : the instance| × | √ |
 |showCalendarFn| the callback of show calendar|{Function}|-|×  |√|
