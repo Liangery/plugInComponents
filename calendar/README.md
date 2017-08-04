@@ -2,12 +2,12 @@
 
 ### 参数说明
 |Name|Mean|Type|Value|Must|change|
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 |clickTarget | the id of the dom you touch | {String}| - | × | × |
 |container| the id of the container you ready to append dom| {String}| - | √ | √|
 |angle| fix the sensibility of user touches by angle | {Number}|  had better set it between  **5** and **20** | × | × |
 |isMask| set layout | {Boolean} | true:“**popup layout**”, false:“**normal layout**”  | √ | √ |
-|beginTime| user-defined begin time points.  | {Array(Number)} |an empty array means` [1970, 1, 1]`. every position sequent meas “**year**”, "**month**" and "**date**".  | √ | × |
+|beginTime| user-defined begin time points.  | {Array(Number)} |an empty array means` [1970, 1, 1]`. every position sequent meas “**year**”, "**month**" and "**date**".  | √ |× |
 |endTime| user-defined end time points. | {Array(Number)}| the same to beginTime. an empty array means `[nextYear, 12, 31] `| √ | × |
 |recentTime| user-defined current time points. | {Array(Number)} | the same to beginTime. an empty array means `[currentYear, currentMonth, 1]`  | √ | × |
 |isSundayFirst| the Sequence of Sunday | {Boolean}| true:Sunday at the **first** column, false:Sunday at the **last** column | √ | × |
