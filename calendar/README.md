@@ -1,6 +1,6 @@
 
 
-### 参数说明
+### 参数调整说明
 |Name|Mean|Type|Value|Must|change|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |clickTarget | the id of the dom you touch | {String}| - | × | × |
